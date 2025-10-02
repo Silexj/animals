@@ -1,24 +1,33 @@
 #ifndef MODEL_H
 #define MODEL_H
 #include <vector>
-#include "Fox.h"
-#include "Rabbit.h"
+#include <iostream>
+#include "../animals/Fox.h"
+#include "../animals/Rabbit.h"
+#include "../utils/Constants.h"
 
 class Model {
 private:
     int **grid;
     int grid_n;
     int grid_m;
-    std::vector<Fox> foxes;
-    std::vector<Rabbit> rabbits;
+    std::vector<Fox*> foxes;
+    std::vector<Rabbit*> rabbits;
+    int step;
+public:
 
-    void move_fox(Fox fox) {
+    Model(int n, int m);
 
-    }
+    void add_fox(int x, int y, int d, int s);
+    void add_rabbit(int x, int y, int d, int s);
 
-    void move_rabbit(Rabbit rabbit) {
-        
-    }
+
+    void dying();
+    void reproduction();
+    void feeding();
+    void aging();
+    void move();
+    void print_step();
 };
 
 #endif
