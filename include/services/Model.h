@@ -1,5 +1,7 @@
 #ifndef MODEL_H
 #define MODEL_H
+#include <fstream>
+#include <string>
 #include <vector>
 #include <iostream>
 #include "../animals/Fox.h"
@@ -17,17 +19,22 @@ private:
 public:
 
     Model(int n, int m);
+    
+
+    ~Model();
 
     void add_fox(int x, int y, int d, int s);
     void add_rabbit(int x, int y, int d, int s);
 
-
+    void next_step();
     void dying();
     void reproduction();
     void feeding();
     void aging();
     void move();
     void print_step();
+    void print_game(int steps);
+    void write_step();
 };
 
 #endif

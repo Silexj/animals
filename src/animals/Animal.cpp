@@ -7,6 +7,11 @@ Animal::Animal(int x, int y, int d, int s) : x(x), y(y), direction(d), stability
     id_count++;
 };
 
+Animal::Animal() : x(0), y(0), direction(0), stability(1), age(0), is_alive(true) {
+    id = id_count;
+    id_count++;
+}
+
 
 Animal::~Animal() = default;
 
@@ -62,16 +67,16 @@ void Animal::change_direction() {
     switch (direction)
     {
     case constants::SOUTH:
-        direction = constants::EAST;
-        break;
-    case constants::EAST:
-        direction = constants::NORTH;
-        break;
-    case constants::NORTH:
         direction = constants::WEST;
         break;
-    case constants::WEST:
+    case constants::EAST:
         direction = constants::SOUTH;
+        break;
+    case constants::NORTH:
+        direction = constants::EAST;
+        break;
+    case constants::WEST:
+        direction = constants::NORTH;
         break;
     default:
         break;

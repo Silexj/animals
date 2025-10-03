@@ -8,6 +8,7 @@ class Rabbit: public Animal {
 public:
     Rabbit(int x, int y, int d, int s);
     Rabbit(int x, int y, int d, int s, int step);
+    Rabbit();
 
     Animal* reproduce(int step) const override;
     bool can_reproduce() const override;

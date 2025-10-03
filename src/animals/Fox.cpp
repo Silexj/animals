@@ -7,6 +7,8 @@ Fox::Fox(int x, int y, int d, int s, int age_parent, int step): Animal(x, y, d, 
     birth_step = step;
 };
 
+Fox::Fox() : Animal() {};
+
 int Fox::get_age_parent() {
     return age_parent;
 }
@@ -21,9 +23,10 @@ int Fox::get_hunger() {
 
 void Fox::movement(int height, int width, int step) {
     switch (direction) {
-        case constants::NORTH:
+        case constants::SOUTH:
             if (y + constants::MOVE_FOX >= height) {
                 y = (y + constants::MOVE_FOX) - height;
+                // y = 0;
             } else {
                 y = (y + constants::MOVE_FOX);
             }
@@ -31,13 +34,15 @@ void Fox::movement(int height, int width, int step) {
         case constants::EAST:
             if (x + constants::MOVE_FOX >= width) {
                 x = ((x + constants::MOVE_FOX) - width);
+                // x = 0;
             } else {
                 x = x + constants::MOVE_FOX;
             }
             break;
-        case constants::SOUTH:
+        case constants::NORTH:
             if (y - constants::MOVE_FOX < 0) {
                 y = (height + (y - constants::MOVE_FOX));
+                // y = height - 1;
             } else {
                 y = (y - constants::MOVE_FOX);
             }
@@ -45,6 +50,7 @@ void Fox::movement(int height, int width, int step) {
         case constants::WEST:
             if (x - constants::MOVE_FOX < 0) {
                 x = (width + (x - constants::MOVE_FOX));
+                // x = width - 1;
             } else {
                 x = (x - constants::MOVE_FOX);
             }

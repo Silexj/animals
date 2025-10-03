@@ -11,6 +11,7 @@ private:
 public: 
     Fox(int x, int y, int d, int s);
     Fox(int x, int y, int d, int s, int age_parent, int step);
+    Fox();
 
     int get_age_parent();
     int get_hunger();

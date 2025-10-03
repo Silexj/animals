@@ -18,6 +18,7 @@ protected:
 
 public:
     Animal(int x, int y, int d, int s);
+    Animal();
 
     virtual ~Animal();
 
