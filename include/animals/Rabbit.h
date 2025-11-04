@@ -13,7 +13,6 @@ public:
     Animal* reproduce(int step) const override;
     bool can_reproduce() const override;
     void movement(int height, int width, int step) override;
-
 };
 
 #endif

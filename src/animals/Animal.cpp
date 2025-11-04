@@ -83,3 +83,9 @@ void Animal::change_direction() {
     }
 }
 
+void Animal::write(const std::string &filename) const {
+    std::ofstream csv_table;
+    csv_table.open(filename, std::ios::app);
+    csv_table << id << "," << x << "," << y << "," << direction << "," << stability << "," << age << "," << birth_step << "," << is_alive << std::endl;
+    csv_table.close();
+}

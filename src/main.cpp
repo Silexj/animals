@@ -24,7 +24,11 @@ int main() {
         config_file >> x >> y >> d >> s;
         M.add_fox(x, y, d, s);
     }
+    config_file.close();
 
-    M.print_game(steps);
-    M.write_step();
+    M.run_simulation(steps);
+
+    M.export_to_json("simulation_output.json");
+
+    std::cout << "Simulation finished. Data saved to simulation_output.json" << std::endl;
 }

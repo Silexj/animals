@@ -104,6 +104,7 @@ void Model::reproduction() {
     std::vector<Animal*> newborns;
     for (auto &f : foxes) {
         if (f->can_reproduce()) {
+            f->set_hunger(2);
             Animal* child = f->reproduce(step);
             if (child != nullptr) {
                 newborns.push_back(child);
@@ -123,7 +124,7 @@ void Model::reproduction() {
             grid[new_fox->get_y()][new_fox->get_x()]--;
             foxes.push_back(new_fox);
         } else if (Rabbit* new_rabbit = dynamic_cast<Rabbit*>(nb)) {
-            grid[new_rabbit->get_y()][new_fox->get_x()]++;
+            grid[new_rabbit->get_y()][new_rabbit->get_x()]++;
             rabbits.push_back(new_rabbit);
         }
     }
@@ -157,39 +158,65 @@ void Model::next_step() {
     aging();
     reproduction();
     dying();
-
-    print_step();
 }
 
-void Model::print_game(int steps) {
-    // if (steps != 0) {
-    //     std::cout << "Game not valid!" << std::endl;
-    //     return;
-    // } 
-    print_step();
-    for (int i = 0; i < steps; i++) {
+void Model::record_step_state() {
+    json current_step_data;
+
+    current_step_data["step_number"] = step;
+
+    json foxes_array = json::array();
+    for (const auto& f: foxes) {
+        foxes_array.push_back({
+            {"id", f->get_id()},
+            {"x", f->get_x()},
+            {"y", f->get_y()},
+            {"age", f->get_age()},
+            {"hunger", f->get_hunger()},
+            {"is_alive", f->alive()}
+        });
+    }
+
+    json rabbits_array = json::array();
+    for (const auto& r : rabbits) {
+        rabbits_array.push_back({
+            {"id", r->get_id()},
+            {"x", r->get_x()},
+            {"y", r->get_y()},
+            {"age", r->get_age()},
+            {"is_alive", r->alive()}
+        });
+    }
+
+    current_step_data["foxes"] = foxes_array;
+    current_step_data["rabbits"] = rabbits_array;
+
+    simulation_history.push_back(current_step_data);
+}
+
+void Model::run_simulation(int steps) {
+    record_step_state();
+    for (int i = 0; i< steps; i++) {
         next_step();
-        print_step();
+        record_step_state();
     }
 }
 
-void Model::write_step() {
-    std::ofstream out_file("output.txt");
 
-    if (!out_file.is_open()) {
-        std::cerr << "File not open!" << std::endl;
-        return;
+void Model::export_to_json(const std::string& filename) const {
+    json output_data;
+    output_data["grid_dimensions"] = {
+        {"width", grid_m},
+        {"height", grid_n}
+    };
+
+    output_data["simulation_data"] = simulation_history;
+
+    std::ofstream file(filename);
+    if (file.is_open()) {
+        file << output_data.dump(4);
+        file.close();
+    } else {
+        std::cerr << "Cannot open file!" << std::endl;
     }
-    std::cout << "======================STEP " << step << "======================" << std::endl;
-    for (int i = 0; i < grid_n; i++) {
-        for (int j = 0; j < grid_m; j++) {
-            if (grid[i][j] == 0) {
-                out_file << "*\t";
-            } else {
-                out_file << grid[i][j] << "\t";
-            }
-        }
-        out_file << std::endl;
-    }
-    out_file.close();
 }

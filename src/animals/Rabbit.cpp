@@ -13,32 +13,28 @@ void Rabbit::movement(int height, int width, int step) {
     switch (direction) {
         case constants::SOUTH:
             if (y + constants::MOVE_RABBIT >= height) {
-                // y = ((y + constants::MOVE_RABBIT) - height);
-                y = 0;
+                y = ((y + constants::MOVE_RABBIT) - height);
             } else {
                 y = (y + constants::MOVE_RABBIT);
             }
             break;
         case constants::EAST:
             if (x + constants::MOVE_RABBIT >= width) {
-                // x = ((x + constants::MOVE_RABBIT) - width);
-                x = 0;
+                x = ((x + constants::MOVE_RABBIT) - width);
             } else {
                 x = (x + constants::MOVE_RABBIT);
             }
             break;
         case constants::NORTH:
             if (y - constants::MOVE_RABBIT < 0) {
-                // y = (height + (y - constants::MOVE_RABBIT));
-                y = height - 1;
+                y = (height + (y - constants::MOVE_RABBIT));
             } else {
                 y = (y - constants::MOVE_RABBIT);
             }
             break;
         case constants::WEST:
             if (x - constants::MOVE_RABBIT < 0) {
-                // x = (width + (x - constants::MOVE_RABBIT));
-                x = width - 1;
+                x = (width + (x - constants::MOVE_RABBIT));
             } else {
                 x = (x - constants::MOVE_RABBIT);
             }

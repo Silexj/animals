@@ -1,6 +1,8 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
 #include "../utils/Constants.h"
+#include <string>
+#include <fstream>
 
 
 class Animal {
@@ -34,7 +36,7 @@ public:
     int get_stability();
     bool alive();
 
-    
+    virtual void write(const std::string &filename) const;
 
     virtual Animal* reproduce(int step) const = 0;
     virtual bool can_reproduce() const = 0;
