@@ -43,3 +43,4 @@
 *.vscode
 
 output.txt
+simulation_output.json
