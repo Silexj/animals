@@ -173,7 +173,8 @@ void Model::record_step_state() {
             {"y", f->get_y()},
             {"age", f->get_age()},
             {"hunger", f->get_hunger()},
-            {"is_alive", f->alive()}
+            {"is_alive", f->alive()},
+            {"direction", f->get_direction()}
         });
     }
 
@@ -184,7 +185,8 @@ void Model::record_step_state() {
             {"x", r->get_x()},
             {"y", r->get_y()},
             {"age", r->get_age()},
-            {"is_alive", r->alive()}
+            {"is_alive", r->alive()},
+            {"direction", r->get_direction()}
         });
     }
 
